@@ -1,6 +1,6 @@
 
 /*
- * Author : Stephen Smalley, <sds@epoch.ncsc.mil> 
+ * Author : Stephen Smalley, <sds@epoch.ncsc.mil>
  */
 
 /*
@@ -32,7 +32,7 @@
 
 /* FLASK */
 
-/* 
+/*
  * checkpolicy
  *
  * Load and check a policy configuration.
@@ -42,13 +42,13 @@
  * the security server.  By default, checkpolicy reads
  * the text format.   If '-b' is specified, then checkpolicy
  * reads the binary format instead.
- * 
- * If '-o output_file' is specified, then checkpolicy 
+ *
+ * If '-o output_file' is specified, then checkpolicy
  * writes the binary format version of the configuration
- * to the specified output file.  
- * 
- * If '-d' is specified, then checkpolicy permits the user 
- * to interactively test the security server functions with 
+ * to the specified output file.
+ *
+ * If '-d' is specified, then checkpolicy permits the user
+ * to interactively test the security server functions with
  * the loaded policy configuration.
  *
  * If '-c' is specified, then the supplied parameter is used to
@@ -163,7 +163,7 @@ static int insert_type_rule(avtab_key_t * k, avtab_datum_t * d,
 	struct avtab_node *p, *c, *n;
 
 	for (p = type_rules, c = type_rules->next; c; p = c, c = c->next) {
-		/* 
+		/*
 		 * Find the insertion point, keeping the list
 		 * ordered by source type, then target type, then
 		 * target class.
@@ -198,8 +198,8 @@ static int create_type_rules(avtab_key_t * k, avtab_datum_t * d, void *args)
 	struct avtab_node *type_rules = args;
 
 	if (d->specified & AVTAB_ALLOWED) {
-		/* 
-		 * Insert the rule into the lists for both 
+		/*
+		 * Insert the rule into the lists for both
 		 * the source type and the target type.
 		 */
 		if (insert_type_rule(k, d, &type_rules[k->source_type - 1]))
@@ -452,7 +452,9 @@ int main(int argc, char **argv)
 			mlspol = 1;
 			break;
 		case 'c':{
-				long int n = strtol(optarg, NULL, 10);
+				long int n;
+				errno = 0;
+				n = strtol(optarg, NULL, 10);
 				if (errno) {
 					fprintf(stderr,
 						"Invalid policyvers specified: %s\n",
